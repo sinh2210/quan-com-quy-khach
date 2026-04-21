@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quán Cơm Quý Khách – TP. Huế</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --brown-dark: #3b2009;
+    --brown-mid: #7c4a1e;
+    --orange: #e07b30;
+    --orange-light: #f5a55a;
+    --warm-white: #fff9f1;
+    --text: #2e1a09;
+    --muted: #9a7355;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(253,246,236,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e8d5b7;
+    padding: 0 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown-dark);
+    letter-spacing: 0.5px;
+  }
+  .logo span { color: var(--orange); font-style: italic; }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a {
+    text-decoration: none;
+    color: var(--brown-mid);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--orange); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5% 5% 5% 8%;
+    position: relative;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f5a55a33, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block;
+    background: #f5e6d0;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 1.15;
+    color: var(--brown-dark);
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title em {
+    color: var(--orange);
+    font-style: italic;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.3s ease both; }
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #c96a20; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--brown-mid);
+    padding: 14px 28px;
+    border: 2px solid #d4aa85;
+    border-radius: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-right {
+    position: relative;
+    background: linear-gradient(135deg, #f5e6d0, #f0d4b0);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9905a' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .food-visual {
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff3e0, #ffd9a0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9rem;
+    box-shadow: 0 20px 60px rgba(100,50,0,0.2), inset 0 -4px 20px rgba(255,255,255,0.5);
+    animation: float 4s ease-in-out infinite, fadeIn 0.8s ease both;
+    position: relative;
+    z-index: 1;
+  }
+  .food-tag {
+    position: absolute;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(100,50,0,0.15);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--brown-dark);
+    display: flex; align-items: center; gap: 6px;
+    z-index: 2;
+  }
+  .tag1 { top: 22%; left: 4%; animation: float 4s 0.5s ease-in-out infinite; }
+  .tag2 { bottom: 22%; right: 4%; animation: float 4s 1s ease-in-out infinite; }
+  .tag1 .dot, .tag2 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--brown-dark);
+    padding: 2.5rem 8%;
+    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem;
+  }
+  .stat { text-align: center; color: white; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--orange-light);
+  }
+  .stat-label { font-size: 0.85rem; color: #c9a87a; margin-top: 4px; letter-spacing: 0.5px; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 5rem 8%; }
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--brown-dark);
+    margin-bottom: 1rem;
+  }
+  .section-title em { color: var(--orange); font-style: italic; }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 500px; }
+
+  /* ── MENU ── */
+  #menu { background: var(--warm-white); }
+  .menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .menu-tabs { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem; }
+  .tab {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 2px solid #e2c9a8;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .tab.active, .tab:hover { background: var(--orange); border-color: var(--orange); color: white; }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .menu-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(100,50,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .menu-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(100,50,0,0.13); }
+  .card-img {
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    background: linear-gradient(135deg, #fdf0e0, #f5d9b0);
+  }
+  .card-body { padding: 1rem 1.2rem 1.2rem; }
+  .card-name { font-weight: 600; font-size: 0.95rem; color: var(--brown-dark); margin-bottom: 0.3rem; }
+  .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.8rem; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--orange); font-weight: 600; }
+  .hot-badge {
+    font-size: 0.7rem;
+    background: #fff0e0;
+    color: var(--orange);
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  /* ── ABOUT ── */
+  #about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-visual {
+    position: relative;
+  }
+  .about-img-main {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #f5e0c0, #e8c090);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    box-shadow: 0 16px 50px rgba(100,50,0,0.15);
+  }
+  .about-img-secondary {
+    position: absolute;
+    bottom: -28px; right: -28px;
+    width: 130px; height: 130px;
+    background: linear-gradient(135deg, #fff3e0, #ffd9a0);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    box-shadow: 0 8px 25px rgba(100,50,0,0.15);
+    border: 4px solid white;
+  }
+  .about-list { margin-top: 1.8rem; display: flex; flex-direction: column; gap: 1rem; }
+  .about-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .about-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: #fff0e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .about-item-text h4 { font-size: 0.9rem; font-weight: 600; color: var(--brown-dark); margin-bottom: 3px; }
+  .about-item-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--brown-dark); color: white; }
+  #contact .section-title { color: white; }
+  #contact .section-tag { color: var(--orange-light); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  .contact-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .contact-card h4 { font-size: 0.85rem; color: #c9a87a; margin-bottom: 5px; letter-spacing: 0.5px; }
+  .contact-card p { font-size: 0.95rem; color: white; line-height: 1.6; }
+  .map-placeholder {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    height: 100%; /* Đã sửa để thẻ bản đồ kéo dài bằng với cột bên cạnh */
+    min-height: 300px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    color: #9a7355;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .map-placeholder span { font-size: 0.9rem; color: #9a7355; font-family: 'Nunito', sans-serif; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #280e00;
+    color: #9a7355;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--orange-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%        { transform: translateY(-10px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 300px; }
+    .food-visual { width: 220px; height: 220px; font-size: 6rem; }
+    #about { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Quán cơm <span>Quý Khách</span></div>
+  <ul>
+    <li><a href="#menu">Thực Đơn</a></li>
+    <li><a href="#about">Về Chúng Tôi</a></li>
+    <li><a href="#contact">Liên Hệ</a></li>
+  </ul>
+  <a href="tel:0932409425" class="btn-primary" style="font-size:0.85rem;padding:10px 20px;">📞 Gọi Đặt Bàn</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <span class="badge">🏠 Quán cơm bình dân – TP. Huế</span>
+    <h1 class="hero-title">
+      Bữa cơm <em>ấm áp</em><br>giữa lòng Huế
+    </h1>
+    <p class="hero-desc">Quán Cơm Quý Khách phục vụ những món ăn dân dã, nấu từ nguyên liệu tươi mỗi ngày tại Phường Phong Thái, TP. Huế.</p>
+    <div class="btn-group">
+      <a href="#menu" class="btn-primary">Xem Thực Đơn 🍚</a>
+      <a href="#contact" class="btn-outline">Tìm Đường Tới Quán</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="food-tag tag1"><span class="dot"></span> Mở cửa 5:00 – 23:00</div>
+    <div class="food-visual">🍛</div>
+    <div class="food-tag tag2"><span class="dot"></span> Hơn 30 món mỗi ngày</div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Năm Kinh Nghiệm</div></div>
+  <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Món Ăn Mỗi Ngày</div></div>
+  <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Khách Quen Mỗi Tháng</div></div>
+  <div class="stat"><div class="stat-num">4.0★</div><div class="stat-label">Đánh Giá Trung Bình</div></div>
+</div>
+
+<section id="menu">
+  <div class="menu-header">
+    <div>
+      <div class="section-tag">Thực Đơn Quán</div>
+      <h2 class="section-title">Món ngon <em>chọn lọc</em></h2>
+      <div class="menu-tabs">
+        <button class="tab active" data-cat="chinh">Món Chính</button>
+        <button class="tab" data-cat="canh">Canh</button>
+        <button class="tab" data-cat="rau">Món Rau</button>
+        <button class="tab" data-cat="uong">Đồ Uống</button>
+        <button class="tab" data-cat="bun">Bún Bò Huế</button>
+      </div>
+    </div>
+    <p class="section-sub">Tất cả các món được nấu mới mỗi ngày, tươi ngon và đậm vị.</p>
+  </div>
+
+  <div class="menu-grid" id="cat-chinh">
+    <div class="menu-card"><div class="card-img">🍗</div><div class="card-body"><div class="card-name">Gà Xào Sả Ớt</div><div class="card-desc">Gà xào sả ớt thơm cay, đậm đà hương vị miền Trung</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🍋</div><div class="card-body"><div class="card-name">Gà Rán Lá Chanh</div><div class="card-desc">Gà chiên giòn thơm lá chanh, chấm muối tiêu chanh</div><div class="card-footer"><span class="hot-badge">❤️ Yêu Thích</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🐔</div><div class="card-body"><div class="card-name">Gà Luộc</div><div class="card-desc">Gà ta luộc chín tới, da vàng giòn, chấm muối gừng</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🧄</div><div class="card-body"><div class="card-name">Gà Kho Ném</div><div class="card-desc">Gà kho riềng mẻ đặc trưng xứ Huế, đậm đà</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🥩</div><div class="card-body"><div class="card-name">Sườn Rán</div><div class="card-desc">Sườn non chiên vàng giòn, thơm mùi tỏi</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🍖</div><div class="card-body"><div class="card-name">Sườn Xào Chua Ngọt</div><div class="card-desc">Sườn xào sốt chua ngọt, dứa và ớt chuông</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🥣</div><div class="card-body"><div class="card-name">Thịt Luộc Mắm Tôm</div><div class="card-desc">Thịt ba chỉ luộc, chấm mắm tôm chanh ớt chuẩn vị</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🔥</div><div class="card-body"><div class="card-name">Thịt Rang Cháy Cạnh</div><div class="card-desc">Thịt rang khô, cháy cạnh vàng giòn, ăn kèm cơm trắng</div><div class="card-footer"><span class="hot-badge">❤️ Yêu Thích</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🐄</div><div class="card-body"><div class="card-name">Bò Xào Hành</div><div class="card-desc">Bò xào hành tây, tiêu đen, thơm nức mũi</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🐟</div><div class="card-body"><div class="card-name">Cá Bống Kho Tộ</div><div class="card-desc">Cá bống kho tộ đất, nước màu đậm đà kiểu truyền thống</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🍅</div><div class="card-body"><div class="card-name">Cá Biển Sốt Cà Chua</div><div class="card-desc">Cá biển sốt cà chua, hành lá thơm ngon</div><div class="card-footer"></div></div></div>
+  </div>
+
+  <div class="menu-grid" id="cat-canh" style="display:none">
+    <div class="menu-card"><div class="card-img">🍲</div><div class="card-body"><div class="card-name">Canh Gà Lá Giang</div><div class="card-desc">Canh gà nấu lá giang chua nhẹ, đặc sản miền Trung</div><div class="card-footer"><span class="hot-badge">❤️ Yêu Thích</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🐟</div><div class="card-body"><div class="card-name">Canh Chua Cá Lóc</div><div class="card-desc">Cá lóc tươi, me chua, giá đỗ, cà chua, thơm</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🦈</div><div class="card-body"><div class="card-name">Canh Chua Cá Dìa</div><div class="card-desc">Cá dìa đặc sản Huế nấu canh chua thanh mát</div><div class="card-footer"><span class="hot-badge">🌟 Đặc Sản</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🥦</div><div class="card-body"><div class="card-name">Canh Cải</div><div class="card-desc">Canh cải xanh nấu ngọt, thanh mát, ăn kèm mọi món</div><div class="card-footer"></div></div></div>
+  </div>
+
+  <div class="menu-grid" id="cat-rau" style="display:none">
+    <div class="menu-card"><div class="card-img">🌿</div><div class="card-body"><div class="card-name">Rau Muống Xào Tỏi</div><div class="card-desc">Rau muống xào tỏi phi thơm giòn, đậm đà</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🥬</div><div class="card-body"><div class="card-name">Rau Muống Luộc</div><div class="card-desc">Rau muống luộc xanh mướt, chấm nước mắm tỏi ớt</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🥗</div><div class="card-body"><div class="card-name">Rau Cải Xào</div><div class="card-desc">Cải ngọt xào tỏi, giữ nguyên độ giòn tươi</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🌽</div><div class="card-body"><div class="card-name">Bắp Xu Xào</div><div class="card-desc">Bắp xu xào bơ tỏi, ngọt tự nhiên, béo nhẹ</div><div class="card-footer"></div></div></div>
+  </div>
+
+  <div class="menu-grid" id="cat-bun" style="display:none">
+    <div class="menu-card"><div class="card-img">🍜</div><div class="card-body"><div class="card-name">Bún Bò</div><div class="card-desc">Bún bò nước lèo đậm đà, thịt bò mềm, sả thơm đặc trưng xứ Huế</div><div class="card-footer"><span class="hot-badge">🔥 Bán Chạy</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🦴</div><div class="card-body"><div class="card-name">Bún Giò</div><div class="card-desc">Bún giò heo hầm mềm, nước dùng trong ngọt, thêm chả Huế</div><div class="card-footer"><span class="hot-badge">❤️ Yêu Thích</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🌶️</div><div class="card-body"><div class="card-name">Bún Bò Huế</div><div class="card-desc">Đặc sản cay thơm chuẩn vị Huế – bò, giò, chả, mắm ruốc</div><div class="card-footer"><span class="hot-badge">🌟 Đặc Sản</span></div></div></div>
+    <div class="menu-card"><div class="card-img">🍝</div><div class="card-body"><div class="card-name">Mì Xào</div><div class="card-desc">Mì xào giòn hoặc mềm với rau củ, thịt, hải sản theo yêu cầu</div><div class="card-footer"></div></div></div>
+    <div class="menu-card"><div class="card-img">🥣</div><div class="card-body"><div class="card-name">Mì Nước</div><div class="card-desc">Mì trứng nấu nước dùng ngọt, thêm thịt và rau tươi</div><div class="card-footer"></div></div></div>
+  </div>
+
+  <div class="menu-grid" id="cat-uong" style="display:none">
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/coca.jpg" alt="Coca Cola" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">CoCa Cola</div>
+      <div class="card-desc">Nước ngọt có ga Coca-Cola lon lạnh</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/bohuc.jpg" alt="Bò Húc" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">Bò Húc</div>
+      <div class="card-desc">Nước tăng lực Sting vị dâu hoặc vị xanh</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/spire.jpg" alt="Spire" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">Spire</div>
+      <div class="card-desc">Nước ngọt Sprite lon mát lạnh, thanh vị chanh</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/nutri.jpg" alt="Sữa Nutri" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">Sữa Nutri</div>
+      <div class="card-desc">Sữa Nutriboost cam hoặc dâu, bổ dưỡng</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/fanta.jpg" alt="FanTa" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">FanTa</div>
+      <div class="card-desc">Nước ngọt Fanta cam lon mát lạnh</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/huda.jpg" alt="Bia HuDa" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">Bia HuDa</div>
+      <div class="card-desc">Bia Huda đặc sản xứ Huế, lon hoặc chai</div>
+      <div class="card-footer"><span class="hot-badge">🌟 Đặc Sản Huế</span></div>
+    </div>
+  </div>
+
+  <div class="menu-card">
+    <div class="card-img" style="padding: 0; overflow: hidden; background: white;">
+      <img src="do_uong/ruou.jpg" alt="Rượu" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="card-body">
+      <div class="card-name">Rượu</div>
+      <div class="card-desc">Rượu gạo địa phương, phục vụ theo yêu cầu</div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+</div>  
+</section>
+
+<section id="about">
+  <div class="about-visual">
+    <div class="about-img-main">🫕</div>
+    <div class="about-img-secondary">👩‍🍳</div>
+  </div>
+  <div>
+    <div class="section-tag">Câu Chuyện Của Chúng Tôi</div>
+    <h2 class="section-title">Nấu bằng <em>tình thương</em>, phục vụ bằng tâm</h2>
+    <p class="section-sub">Quán Cơm Quý Khách tọa lạc tại Phường Phong Thái, TP. Huế – phục vụ những bữa cơm bình dân thân thương cho bà con và thực khách gần xa.</p>
+    <div class="about-list">
+      <div class="about-item">
+        <div class="about-icon">🌿</div>
+        <div class="about-item-text">
+          <h4>Nguyên liệu tươi mỗi ngày</h4>
+          <p>Mua từ chợ đầu mối buổi sáng, đảm bảo tươi ngon và sạch sẽ.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">💰</div>
+        <div class="about-item-text">
+          <h4>Giá bình dân, không phụ thu</h4>
+          <p>Cơm trắng và nước lọc phục vụ miễn phí kèm theo mỗi phần.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🏠</div>
+        <div class="about-item-text">
+          <h4>Không gian ấm cúng, thoáng mát</h4>
+          <p>Bàn ghế sạch sẽ, quạt mát, phù hợp cho cả gia đình và nhóm bạn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag">THÔNG TIN LIÊN HỆ</div>
+  <h2 class="section-title">Ghé <em>thăm</em> chúng tôi</h2>
+  <div class="contact-grid">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>ĐỊA CHỈ</h4>
+          <p>Km23, TDP Đông An<br>Phường Phong Thái, TP. Huế</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">⏰</div>
+        <div>
+          <h4>GIỜ MỞ CỬA</h4>
+          <p>Thứ Hai – Thứ Bảy: 5:00 – 23:00<br>Chủ Nhật: 7:00 – 14:00</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>ĐIỆN THOẠI</h4>
+          <p>0932409425<br>0336664252 (Zalo)</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="map-placeholder" style="padding: 0; overflow: hidden; border: none;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14540.948324648216!2d107.42036714999999!3d16.5529041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141076468258a29%3A0x6a6cfc79451173a2!2zUXXDoW4gQ8ahbSBRdcO9IEtow6FjaA!5e1!3m2!1svi!2s!4v1776738251101!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <strong>Quán Cơm Quý Khách</strong> · TDP Đông An, Phường Phong Thái, TP. Huế</p>
+</footer>
+
+<script>
+  // Tab switching with category filter
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      ['chinh','canh','rau','uong','bun'].forEach(c => {
+        document.getElementById('cat-' + c).style.display = (c === cat) ? 'grid' : 'none';
+      });
+    });
+  });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.menu-card, .contact-card, .about-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
